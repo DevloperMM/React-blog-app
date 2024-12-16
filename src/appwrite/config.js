@@ -1,4 +1,4 @@
-import { Account, Client, Databases, Storage, Query, ID } from "appwrite";
+import { Client, Databases, Storage, Query, ID } from "appwrite";
 import conf from "../conf/conf.js";
 
 export class Service {
@@ -113,8 +113,12 @@ export class Service {
     }
   }
 
-  getFilePreview(fileId) {
+  filePreview(fileId) {
     return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
+  }
+
+  fileDownload(fileId) {
+    return this.bucket.getFileDownload(conf.appwriteBucketId, fileId);
   }
 }
 
