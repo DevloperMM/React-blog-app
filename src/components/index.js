@@ -10,6 +10,8 @@ import Select from "./Select.jsx";
 import Login from "./Login.jsx";
 import SignUp from "./SignUp.jsx";
 import Protected from "./AuthLayout.jsx";
+import RTE from "./RTE.jsx";
+import PostForm from "./Post-Form/PostForm.jsx";
 
 export {
   Header,
@@ -24,4 +26,6 @@ export {
   Login,
   SignUp,
   Protected,
+  RTE,
+  PostForm,
 };
