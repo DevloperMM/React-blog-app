@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import appwriteService from "../appwrite/config";
 import { Container, PostCard } from "../components";
 
-function AllPost() {
+function AllPosts() {
   const [posts, setPosts] = useState([]);
-  useEffect(() => {}, []);
   appwriteService.getAllPosts([]).then((posts) => {
     if (posts) {
       setPosts(posts.documents);
@@ -26,4 +25,4 @@ function AllPost() {
   );
 }
 
-export default AllPost;
+export default AllPosts;
