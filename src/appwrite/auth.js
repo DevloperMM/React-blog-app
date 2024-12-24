@@ -7,8 +7,8 @@ export class AuthService {
 
   constructor() {
     this.client
-      .setProject(conf.appwriteProjectId)
-      .setEndpoint(conf.appwriteUrl);
+      .setEndpoint(conf.appwriteUrl)
+      .setProject(conf.appwriteProjectId);
 
     this.account = new Account(this.client);
   }
@@ -28,32 +28,40 @@ export class AuthService {
         return userAcc;
       }
     } catch (err) {
-      throw err;
+      console.error("Appwrite :: createAccount :: ", err);
     }
+
+    return null;
   }
 
   async login({ email, password }) {
     try {
       return await this.account.createEmailPasswordSession(email, password);
     } catch (err) {
-      throw err;
+      console.error("Appwrite :: login :: ", err);
     }
+
+    return null;
   }
 
-  async getCurrUser() {
+  async getCurrentUser() {
     try {
       return await this.account.get();
     } catch (err) {
-      throw err;
+      console.error("Appwrite :: getCurrentUser :: ", err);
     }
+
+    return null;
   }
 
   async logout() {
     try {
-      await account.deleteSessions();
+      await this.account.deleteSessions();
     } catch (err) {
-      throw err;
+      console.error("Appwrite :: logout :: ", err);
     }
+
+    return null;
   }
 }
 

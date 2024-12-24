@@ -8,8 +8,8 @@ export class Service {
 
   constructor() {
     this.client
-      .setProject(conf.appwriteProjectId)
-      .setEndpoint(conf.appwriteUrl);
+      .setEndpoint(conf.appwriteUrl)
+      .setProject(conf.appwriteProjectId);
 
     this.databases = new Databases(this.client);
     this.bucket = new Storage(this.client);
@@ -30,8 +30,10 @@ export class Service {
         }
       );
     } catch (err) {
-      throw err;
+      console.error("Appwrite :: create post :: ", err);
     }
+
+    return null;
   }
 
   async updatePost(slug, { title, content, featuredImg, status }) {
@@ -48,8 +50,10 @@ export class Service {
         }
       );
     } catch (err) {
-      throw err;
+      console.error("Appwrite :: update post :: ", err);
     }
+
+    return null;
   }
 
   async deletePost(slug) {
@@ -74,8 +78,10 @@ export class Service {
         slug
       );
     } catch (err) {
-      throw err;
+      console.error("Appwrite :: get post :: ", err);
     }
+
+    return null;
   }
 
   async getAllPosts(queries = [Query.equal("status", "active")]) {
@@ -86,8 +92,10 @@ export class Service {
         queries
       );
     } catch (err) {
-      throw err;
+      console.error("Appwrite :: get all posts :: ", err);
     }
+
+    return null;
   }
 
   //file upload services
@@ -99,8 +107,10 @@ export class Service {
         file
       );
     } catch (err) {
-      throw err;
+      console.error("Appwrite :: Upload File :: ", err);
     }
+
+    return null;
   }
 
   async deleteFile(fileId) {
