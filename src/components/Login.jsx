@@ -17,7 +17,7 @@ function Login() {
     try {
       const session = await authService.login(data);
       if (session) {
-        const userData = await authService.getCurrUser();
+        const userData = await authService.getCurrentUser();
         if (userData) dispatch(authLogin(userData));
         navigate("/");
       }
@@ -42,7 +42,9 @@ function Login() {
           <Link
             to="/signup"
             className="font-medium text-primary transition-all duration-200 hover:underline"
-          ></Link>
+          >
+            Register
+          </Link>
         </p>
 
         {error && <p className="text-red-600 mt-8 text-center"></p>}

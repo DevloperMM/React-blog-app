@@ -1,11 +1,20 @@
-import { StrictMode } from "react";
+import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./index.css";
 import App from "./App.jsx";
+import "./index.css";
 import { Provider } from "react-redux";
-import store from "./store/store.js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Protected from "./components/AuthLayout.jsx";
+import store from "./store/store.js";
+import AuthProtect from "./components/AuthProtect.jsx";
+import {
+  Home,
+  Login,
+  SignUp,
+  AllPosts,
+  AddPost,
+  EditPost,
+  Post,
+} from "./pages/index.js";
 
 const router = createBrowserRouter([
   {
@@ -19,44 +28,41 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: (
-          <AuthLayout authentication={false}>
+          <AuthProtect authentication={false}>
             <Login />
-          </AuthLayout>
+          </AuthProtect>
         ),
       },
       {
         path: "/signup",
         element: (
-          <AuthLayout authentication={false}>
-            <Signup />
-          </AuthLayout>
+          <AuthProtect authentication={false}>
+            <SignUp />
+          </AuthProtect>
         ),
       },
       {
         path: "/all-posts",
         element: (
-          <AuthLayout authentication>
-            {" "}
+          <AuthProtect authentication>
             <AllPosts />
-          </AuthLayout>
+          </AuthProtect>
         ),
       },
       {
         path: "/add-post",
         element: (
-          <AuthLayout authentication>
-            {" "}
+          <AuthProtect authentication>
             <AddPost />
-          </AuthLayout>
+          </AuthProtect>
         ),
       },
       {
         path: "/edit-post/:slug",
         element: (
-          <AuthLayout authentication>
-            {" "}
+          <AuthProtect authentication>
             <EditPost />
-          </AuthLayout>
+          </AuthProtect>
         ),
       },
       {

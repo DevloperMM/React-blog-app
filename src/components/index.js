@@ -9,7 +9,7 @@ import Input from "./Input";
 import Select from "./Select.jsx";
 import Login from "./Login.jsx";
 import SignUp from "./SignUp.jsx";
-import Protected from "./AuthLayout.jsx";
+import AuthProtect from "./AuthProtect.jsx";
 import RTE from "./RTE.jsx";
 import PostForm from "./Post-Form/PostForm.jsx";
 
@@ -25,7 +25,7 @@ export {
   Select,
   Login,
   SignUp,
-  Protected,
+  AuthProtect,
   RTE,
   PostForm,
 };
