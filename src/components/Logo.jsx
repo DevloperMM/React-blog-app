@@ -1,9 +1,10 @@
 import React from "react";
+import myLogo from "../assets/img1.jpg";
 
 function Logo({ width = "100px" }) {
   return (
     <div style={{ width }}>
-      <img src={import.meta.env.VITE_PUBLIC_LOGO} alt="Logo" />
+      <img src={myLogo} alt="Logo" />
     </div>
   );
 }
