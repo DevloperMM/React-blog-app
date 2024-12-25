@@ -1,6 +1,6 @@
 {
   "engines": {
-    "node": "23.5.0"
+    "node": "22.11.0"
   },
   "name": "appwrite-react",
   "private": true,
