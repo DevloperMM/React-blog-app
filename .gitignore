@@ -25,5 +25,3 @@ dist-ssr
 
 # Custom
 .env
-./src/assets/img1.jpg
-./src/assets/img2.jpg
