@@ -67,7 +67,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/post/:slug",
-        element: <Post />,
+        element: (
+          <AuthProtect authentication>
+            <Post />
+          </AuthProtect>
+        ),
       },
     ],
   },

@@ -123,12 +123,13 @@ export class Service {
     }
   }
 
-  getFilePreview(fileId) {
-    return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
-  }
-
-  getFileDownload(fileId) {
-    return this.bucket.getFileDownload(conf.appwriteBucketId, fileId);
+  getFilePreview(fileId, width, height) {
+    return this.bucket.getFilePreview(
+      conf.appwriteBucketId,
+      fileId,
+      width,
+      height
+    );
   }
 }
 

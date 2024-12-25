@@ -1,17 +1,17 @@
 import React, { useEffect, useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Input, Form, RTE } from "../index.js";
-import appwriteService from "../../appwrite/config.js";
+import { Button, Input, RTE, Select } from "..";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import appwriteService from "../../appwrite/config.js";
 
-function PostForm({ post }) {
+export default function PostForm({ post }) {
   const { register, handleSubmit, watch, setValue, control, getValues } =
     useForm({
       defaultValues: {
         title: post?.title || "",
         content: post?.content || "",
-        slug: post?.slug || "",
+        slug: post?.$id || "",
         status: post?.status || "active",
       },
     });
@@ -21,29 +21,33 @@ function PostForm({ post }) {
 
   const submit = async (data) => {
     if (post) {
-      data.image[0] ? appwriteService.uploadFile(data.image[0]) : null;
+      const file = data.image[0]
+        ? await appwriteService.uploadFile(data.image[0])
+        : null;
+
       if (file) {
-        appwriteService.deleteFile(post.featuredImage);
+        await appwriteService.deleteFile(post.featuredImg);
       }
 
       const dbPost = await appwriteService.updatePost(post.$id, {
         ...data,
-        featuredImage: file ? file.$id : undefined,
+        featuredImg: file ? file.$id : undefined,
       });
 
       if (dbPost) {
-        navigate(`/post/${post.$id}`);
+        navigate(`/post/${dbPost.$id}`);
       }
     } else {
       const file = await appwriteService.uploadFile(data.image[0]);
 
       if (file) {
         const fileId = file.$id;
-        data.featuredImage = fileId;
+        data.featuredImg = fileId;
         const dbPost = await appwriteService.createPost({
           ...data,
           userId: userData.$id,
         });
+
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
         }
@@ -56,9 +60,10 @@ function PostForm({ post }) {
       return value
         .trim()
         .toLowerCase()
-        .replace(/^[a-zA-Z\d\s]+/g, "-")
+        .replace(/[^a-zA-Z\d\s]+/g, "-")
         .replace(/\s/g, "-");
     }
+
     return "";
   }, []);
 
@@ -68,8 +73,9 @@ function PostForm({ post }) {
         setValue("slug", slugTransform(value.title, { shouldValidate: true }));
       }
     });
+
     return () => subscription.unsubscribe();
-  });
+  }, [watch, setValue, slugTransform]);
 
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
@@ -103,18 +109,20 @@ function PostForm({ post }) {
           label="Featured Image :"
           type="file"
           className="mb-4"
-          accept="image/png, image/jpg, image/jpeg, image/gif"
+          accept="image/png, image/jpg, image/jpeg"
           {...register("image", { required: !post })}
         />
+
         {post && (
           <div className="w-full mb-4">
             <img
-              src={appwriteService.getFilePreview(post.featuredImage)}
+              src={appwriteService.getFilePreview(post.featuredImg)}
               alt={post.title}
               className="rounded-lg"
             />
           </div>
         )}
+
         <Select
           options={["active", "inactive"]}
           label="Status"
@@ -132,5 +140,3 @@ function PostForm({ post }) {
     </form>
   );
 }
-
-export default PostForm;
